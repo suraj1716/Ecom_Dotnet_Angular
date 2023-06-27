@@ -8,11 +8,12 @@ namespace Core.Specifications
 {
     public class ProductWithTypesAndBrandsSpecification: BaseSpecification<Product>
     {
-        public  ProductWithTypesAndBrandsSpecification()
+        public  ProductWithTypesAndBrandsSpecification(string sort)
         {
 
             AddInclude(x=>x.ProductType);
             AddInclude(x=>x.ProductBrand);
+            AddOrderBy(x=>x.Name);
             
         }
 
