@@ -2,10 +2,9 @@
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Core.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using static System.Formats.Asn1.AsnWriter;
+using API.Helper;
+using API.Middleware;
+using API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -22,7 +21,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StoreContext>(options=>options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<StoreContextSeed>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+builder.Services.AddApplicationServices();
 
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 var app = builder.Build();
 
 
@@ -45,8 +48,6 @@ void SeedData(IHost app)
        
     }
 }
-
-
 
 
 
@@ -80,16 +81,22 @@ void SeedData(IHost app)
 
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+   
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.json","API V1"));
 }
+
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
