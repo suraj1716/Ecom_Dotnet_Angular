@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Specifications
 {
-    public class BaseSpecification<T> : ISpecification<T>
+    public class BaseSpecification<T> : ISpecification <T>
     {
 
           public BaseSpecification()
@@ -24,8 +24,14 @@ namespace Core.Specifications
 
         public List<Expression<Func<T, object>>> Includes{get;}=
             new List<Expression<Func<T, object>>>();
-        public Expression<Func<T, object>> OrderBy { get;  set ; }
-        public Expression<Func<T, object>> OrderByDescending { get;  set; }
+        public Expression<Func<T, object>> OrderBy { get;  private set ; }
+        public Expression<Func<T, object>> OrderByDescending { get; private set; }
+
+        public int Take { get; private set; }
+
+        public int Skip{ get; private set; }
+
+        public bool IsPagingEnabled{ get; private set; }
 
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
         {
@@ -42,6 +48,14 @@ namespace Core.Specifications
         protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescExpression)
         {
             OrderByDescending=orderByDescExpression;
+
+        }
+
+        protected void ApplyPaging (int skip, int take)
+        {
+           Skip= skip;
+           Take=take;
+           IsPagingEnabled=true;
 
         }
 

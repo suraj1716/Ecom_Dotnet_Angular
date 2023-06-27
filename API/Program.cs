@@ -24,6 +24,16 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 builder.Services.AddApplicationServices();
 
+builder.Services.AddCors(opt=>
+{
+opt.AddPolicy("CorsPolicy", policy=> 
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+
+    });
+
+});
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 var app = builder.Build();
@@ -48,6 +58,8 @@ void SeedData(IHost app)
        
     }
 }
+
+
 
 
 
@@ -97,6 +109,7 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
