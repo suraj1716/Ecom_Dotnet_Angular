@@ -10,6 +10,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,8 @@ namespace API.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
+
+
 
     public class ProductsController:BaseApiController
     {
@@ -28,6 +31,9 @@ namespace API.Controllers
 
         private readonly IMapper _mapper;
 
+
+    
+     
         public  ProductsController (IGenericRepository <Product> productsRepo,
         IGenericRepository<ProductBrand> productBrandRepo, IGenericRepository<ProductType> productTypeRepo,
           IMapper mapper)
@@ -40,6 +46,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+
         public async Task<ActionResult<Pagination<ProductToReturnDtos>>> GetProducts (
             [FromQuery] ProductSpecParams productParams)
         {
@@ -56,6 +63,7 @@ namespace API.Controllers
         }
 
          [HttpGet("{id}")]
+      
          [ProducesResponseType(StatusCodes.Status200OK)]
          [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDtos>>? GetProduct (int id)
@@ -72,6 +80,7 @@ namespace API.Controllers
         }
 
         [HttpGet ("brands")]
+      
         public async Task <ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
         {
 
@@ -80,6 +89,7 @@ namespace API.Controllers
         }
 
          [HttpGet ("types")]
+     
         public async Task <ActionResult<IReadOnlyList<ProductBrand>>> GetProductTypes()
         {
 
