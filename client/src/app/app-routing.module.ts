@@ -8,13 +8,13 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrprComponent } from './core/server-errpr/server-errpr.component';
 
 const routes: Routes = [
-{path:'',component:HomeComponent},
-{path:'test-error',component:TestErrorComponent},
-{path:'server-error',component:ServerErrprComponent},
-{path:'not-found',component:NotFoundComponent},
-{path:'shop',loadChildren:()=>import('./shop/shop.module').then(mod=>mod.ShopModule)},
+{path:'',component:HomeComponent,  data:{breadcrumb:'Home'}},
+{path:'test-error',component:TestErrorComponent, data:{breadcrumb:'Test Errors'}},
+{path:'server-error',component:ServerErrprComponent,  data:{breadcrumb:'server Errors'}},
+{path:'not-found',component:NotFoundComponent,  data:{breadcrumb:'Not Found'}},
+{path:'shop',loadChildren:()=>import('./shop/shop.module').then(mod=>mod.ShopModule),  data:{breadcrumb:'shop'}},
 
-{path:'**',redirectTo: '', pathMatch: 'full'},
+{path:'**',redirectTo: 'not-found', pathMatch: 'full'},
 
 ];
 

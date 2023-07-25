@@ -7,20 +7,25 @@ import { ShopModule } from "./shop/shop.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HomeModule } from './home/home.module';
-import { NavBarComponent } from './core/nav-bar/nav-bar.component';
+
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
-import { ToastrModule } from 'ngx-toastr';
+
 import { CoreModule } from './core/core.module';
+import{NgxSpinnerModule} from 'ngx-spinner';
+import { LoadingInterceptor } from './core/interceptor/loading.interceptors';
 
 
 @NgModule({
     declarations: [
-        AppComponent 
+        AppComponent,
+        
     ],
     
     providers: [
 
-        {  provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+        {  provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        {  provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+        
 
     ],
 
@@ -32,7 +37,8 @@ import { CoreModule } from './core/core.module';
         HttpClientModule,
         BrowserAnimationsModule,
         HomeModule,
-        CoreModule
+        CoreModule,
+        NgxSpinnerModule
          
         
     ]
