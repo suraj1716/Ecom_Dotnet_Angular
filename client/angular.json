@@ -68,10 +68,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "client:build:production",
-              "sslKey": "ssl/server.key",
-              "sslCert": "ssl/server.cert",
-              "ssl": true
+              "browserTarget": "client:build:production"
             },
             "development": {
               "browserTarget": "client:build:development"
@@ -103,23 +100,11 @@
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
-          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "analytics": "9d1c8362-47b8-41ca-8467-fa87c52ba1a1"
   }
 }

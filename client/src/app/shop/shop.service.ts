@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { IPagination } from '../shared/Models/pagination';
 import { IBrand } from '../shared/Models/brand';
 import { IType } from '../shared/Models/ProductType';
-import { delay, map } from 'rxjs';
+import { map } from 'rxjs';
 import { ShopParams } from '../shared/Models/shopParams';
+import { IProduct } from '../shared/Models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ baseUrl='https://localhost:5108/api/';
     
 return this.http.get<IPagination>(this.baseUrl+'products',{observe: 'response', params})
         .pipe(
-        map(response=>
+        map((response: { body: any; })=>
           {
             return response.body;
           })
@@ -54,6 +55,13 @@ return this.http.get<IPagination>(this.baseUrl+'products',{observe: 'response', 
 ;
 
   }
+
+getProduct(id:number){
+  return this.http.get<IProduct>(this.baseUrl+'products/'+ id);
+
+
+}
+
 
   getBrands(){
     return this.http.get<IBrand[]>(this.baseUrl+'products/brands')

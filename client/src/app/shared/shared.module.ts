@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//import { PaginationModule } from 'ngx-bootstrap/pagination';
-//import { FormsModule } from '@angular/forms';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -10,12 +10,12 @@ import { CommonModule } from '@angular/common';
   imports: [
    
     CommonModule,
-  //  PaginationModule.forRoot(),
-    //FormsModule
+  PaginationModule.forRoot(),
+    FormsModule
     
   ],
 
-  exports:[]
+  exports:[PaginationModule]
   
 })
 export class SharedModule { }
