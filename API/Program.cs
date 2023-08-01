@@ -5,6 +5,7 @@ using Core.Interfaces;
 using API.Helper;
 using API.Middleware;
 using API.Extensions;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -19,6 +20,11 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<StoreContext>(options=>options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(opt=>
+ ConnectionMultiplexer.Connect((builder.Configuration.GetConnectionString("RedisConnection")))
+);
+
 builder.Services.AddTransient<StoreContextSeed>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));

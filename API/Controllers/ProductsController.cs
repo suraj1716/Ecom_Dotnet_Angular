@@ -46,7 +46,6 @@ namespace API.Controllers
         }
 
         [HttpGet]
-
         public async Task<ActionResult<Pagination<ProductToReturnDtos>>> GetProducts (
             [FromQuery] ProductSpecParams productParams)
         {
@@ -80,7 +79,6 @@ namespace API.Controllers
         }
 
         [HttpGet ("brands")]
-      
         public async Task <ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
         {
 
