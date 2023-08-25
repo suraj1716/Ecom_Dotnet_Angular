@@ -1,5 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BasketService } from './basket/basket.service';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  constructor(private http:HttpClient) {}
+  constructor(private basketService: BasketService) {}
   
   ngOnInit(): void {
-   this.http.get('https://localhost:5108/api/products').subscribe((response:any)=>{
-    console.log(response);
-    
-   },error=>{
-    console.log(error);
-  
    
-  });
+    const basketId=localStorage.getItem('basket_id');
+    console.log('initialised ');
+    if(basketId)
+    {
 
+      this.basketService.getBasket(basketId).subscribe(()=>{
+        
+          console.log('initialised basket');
+         
+
+      }, error=>{
+        console.log(error)
+      
+      });
+    
+
+    }
 }
   title = 'client';
 }

@@ -10,7 +10,8 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
-    [Route("[controller]")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class BasketController : BaseApiController
     {
         private readonly IbasketRepository _baskekRepository;
@@ -19,7 +20,8 @@ namespace API.Controllers
         _baskekRepository= basketRepository;
       }
 
-      [HttpGet]
+
+        [HttpGet]
         public async Task<ActionResult<CustomerBasket>> GetBasketById(string id)
         {
             var basket=await _baskekRepository.GetBasketAsync(id);

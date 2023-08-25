@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FormsModule } from '@angular/forms';
+import { OrderTotalsComponent } from './components/order-totals/order-totals.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    OrderTotalsComponent
+  ],
   imports: [
    
     CommonModule,
@@ -17,7 +20,11 @@ import { FormsModule } from '@angular/forms';
     
   ],
 
-  exports:[PaginationModule, CarouselModule]
+  exports:[
+    PaginationModule, 
+    CarouselModule, 
+    OrderTotalsComponent
+  ]
   
 })
 export class SharedModule { }
